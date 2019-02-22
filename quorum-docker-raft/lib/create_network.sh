@@ -21,7 +21,7 @@ function createInitNodeScript(){
 
 #function to create start node script with --raft flag
 function copyScripts(){
-    NET_ID=$(awk -v min=10000 -v max=99999 -v freq=1 'BEGIN{srand(); for(i=0;i<freq;i++)print int(min+rand()*(max-min+1))}')
+    NET_ID=38977
     
     cp lib/master/start_quorum_template.sh ${mNode}/node/start_${mNode}.sh
     chmod +x ${mNode}/node/start_${mNode}.sh
@@ -40,9 +40,6 @@ function copyScripts(){
     chmod +x ${mNode}/node/pre_start_check.sh
 
     cp lib/common.sh ${mNode}/node/common.sh
-
-    cp lib/master/nodemanager_template.sh ${mNode}/node/nodemanager.sh
-    chmod +x ${mNode}/node/nodemanager.sh
 
     cp lib/master/constellation_template.conf ${mNode}/node/${mNode}.conf
 
@@ -91,11 +88,9 @@ function createAccount(){
         mAccountAddress="0x"${BASH_REMATCH[1]};
     fi
     cp datadir/keystore/* ${mNode}/node/qdata/keystore/${mNode}key
-    PATTERN="s|#mNodeAddress#|${mAccountAddress}|g"
-    PATTERN1="s|#CHAIN_ID#|${NET_ID}|g"
+    PATTERN="s|#CHAIN_ID#|${NET_ID}|g"
     cat lib/master/genesis_template.json >> ${mNode}/node/genesis.json
     sed -i $PATTERN ${mNode}/node/genesis.json
-    sed -i $PATTERN1 ${mNode}/node/genesis.json
     rm -rf datadir
 }
 
@@ -152,7 +147,7 @@ function main(){
     readParameters $@
 
     if [ -z "$NON_INTERACTIVE" ]; then
-        getInputWithDefault 'Please enter node name' "" mNode $GREEN
+        getInputWithDefault '请输入节点名称' "" mNode $GREEN
     fi
         
     cleanup

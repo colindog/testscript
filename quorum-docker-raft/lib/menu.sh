@@ -18,7 +18,7 @@ function banner() {
 	    
 	IFS='_'; arrIN=($__version); unset IFS;
 
-	echo -e $GREEN'Version '${arrIN[1]}' Built on Quorum '${arrIN[0]}'\n'
+	echo -e $GREEN'Version '${arrIN[1]}' Built on CloudChain '${arrIN[0]}'\n'
 }
 
 function readParameters() {
@@ -73,12 +73,11 @@ function main() {
 
 	if [ -z "$NON_INTERACTIVE" ]; then
 		flagmain=true
-		echo -e $YELLOW'Please select an option: \n' \
-				$GREEN'1) Create Network \n' \
-				$PINK'2) Join Network \n' \
-				$BLUE'3) Attach to an existing Node \n' \
-				$CYAN'4) Setup Development/Test Network \n' \
-				$RED'5) Exit' 
+		echo -e $YELLOW'操作选择: \n' \
+				$GREEN'1) 创建区块链网络 \n' \
+				$PINK'2) 加入区块链网络 \n' \
+				$CYAN'3) 创建测试区块链网络 \n' \
+				$RED'4) 退出' 
 
 		printf $WHITE'option: '$COLOR_END
 
@@ -91,10 +90,8 @@ function main() {
 		2)
 			lib/join_network.sh $@;;
 		3)
-			lib/attach_node.sh $@;; 
-		4)
 			lib/create_dev_network.sh $@;;
-		5)
+		4)
 			flagmain=false	;;
 		*)
 			echo "Please enter a valid option"	;;

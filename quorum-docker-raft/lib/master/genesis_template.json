@@ -8,7 +8,7 @@
         "eip158Block": 0,
         "isQuorum": true
     },
-  "alloc"      : {"#mNodeAddress#": {
+  "alloc"      : {"0xf8ae1810e4e76843717fc487ef2a2934ce9e6699": {
       "balance": "1000000000000000000000000000"
     }
   },
