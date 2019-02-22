@@ -56,7 +56,7 @@ function copyScripts(){
 
 #function to generate enode
 function generateEnode(){
-    cp nodekey1 ${mNode}/node/qdata/geth/nodekey
+    cp nodekey1/nodekey ${mNode}/node/qdata/geth/.
     cp lib/master/static-nodes.json ${mNode}/node/qdata/static-nodes.json
 }
 
