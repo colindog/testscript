@@ -31,11 +31,6 @@ function readParameters() {
             shift # past argument
             shift # past value
             ;;
-            --raft)
-            raPort="$2"
-            shift # past argument
-            shift # past value
-            ;;
             --ws)
             wsPort="$2"
             shift # past argument
@@ -54,11 +49,11 @@ function readParameters() {
     done
     set -- "${POSITIONAL[@]}" # restore positional parameters
 
-    if [[ -z "$pCurrentIp" && -z "$rPort" && -z "$wPort" && -z "$cPort" && -z "$raPort" && -z "$wsPort" ]]; then
+    if [[ -z "$pCurrentIp" && -z "$rPort" && -z "$wPort" && -z "$cPort" && -z "$wsPort" ]]; then
         return
     fi
 
-    if [[ -z "$pCurrentIp" || -z "$rPort" || -z "$wPort" || -z "$cPort" || -z "$raPort" || -z "$wsPort" ]]; then
+    if [[ -z "$pCurrentIp" || -z "$rPort" || -z "$wPort" || -z "$cPort" || -z "$wsPort" ]]; then
         help
     fi
 
@@ -77,10 +72,8 @@ function readInputs(){
         getInputWithDefault '请输入节点的网络监听端口' $((rPort+1)) wPort $GREEN
         
         getInputWithDefault '请输入Constellation节点的端口号' $((wPort+1)) cPort $GREEN
-        
-        getInputWithDefault '请输入节点的RAFT端口' $((cPort+1)) raPort $PINK
 
-        getInputWithDefault '请输入节点的WS端口' $((raPort+1)) wsPort $GREEN
+        getInputWithDefault '请输入节点的WS端口' $((cPort+1)) wsPort $GREEN
             
     fi
     role="Unassigned"
@@ -90,7 +83,6 @@ function readInputs(){
     echo 'RPC_PORT='$rPort >> ./setup.conf
     echo 'WHISPER_PORT='$wPort >> ./setup.conf
     echo 'CONSTELLATION_PORT='$cPort >> ./setup.conf
-    echo 'RAFT_PORT='$raPort >> ./setup.conf
     echo 'WS_PORT='$wsPort >>  ./setup.conf
         
     echo 'NETWORK_ID='$net >>  ./setup.conf
@@ -107,23 +99,8 @@ function readInputs(){
     sed -i $PATTERN node/start_${nodeName}.sh
     PATTERN="s/nodeIp/${pCurrentIp}/g"
     sed -i $PATTERN node/start_${nodeName}.sh
-    PATTERN="s/ra_Port/${raPort}/g"
-    sed -i $PATTERN node/start_${nodeName}.sh
-    PATTERN="s/nm_Port/${tgoPort}/g"
-    sed -i $PATTERN node/start_${nodeName}.sh
 }
 
-
-# static node to create network 
-function staticNode(){
-    PATTERN1="s/#CURRENT_IP#/$pCurrentIp/g"
-    PATTERN2="s/#W_PORT#/${wPort}/g"
-    PATTERN3="s/#raftPprt#/${raPort}/g"
-
-    sed -i "$PATTERN1" node/qdata/static-nodes.json
-    sed -i "$PATTERN2" node/qdata/static-nodes.json
-    sed -i "$PATTERN3" node/qdata/static-nodes.json
-}
 
 function generateConstellationConf() {
     PATTERN1="s/#CURRENT_IP#/${pCurrentIp}/g"
@@ -151,7 +128,6 @@ function main(){
     if [ ! -f setup.conf ]; then
 
         readInputs
-        staticNode
         generateConstellationConf
         
         if [ ! -z $tessera ]; then
