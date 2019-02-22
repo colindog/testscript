@@ -50,6 +50,7 @@ function copyScripts(){
     cp lib/master/migrate_to_tessera.sh ${mNode}/node
     PATTERN="s/#mNode#/${mNode}/g"
     sed -i $PATTERN ${mNode}/node/migrate_to_tessera.sh
+	cp lib/master/passwords.txt ${mNode}/node
 
 }
 
@@ -61,7 +62,15 @@ function generateEnode(){
 
 #function to create node accout and append it into genesis.json file
 function createAccount(){
+    mAccountAddress="$(geth --datadir datadir --password lib/master/passwords.txt account new 2>> /dev/null)"
+    re="\{([^}]+)\}"
+    if [[ $mAccountAddress =~ $re ]];
+    then
+        mAccountAddress="0x"${BASH_REMATCH[1]};
+    fi
+    cp datadir/keystore/* ${mNode}/node/qdata/keystore/${mNode}key
     cat lib/master/genesis.json >> ${mNode}/node/genesis.json
+	rm -rf datadir
 }
 
 function cleanup(){
