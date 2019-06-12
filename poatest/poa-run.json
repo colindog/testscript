@@ -1,0 +1,50 @@
+[
+  {
+    "name"              : "node1",
+    "cwd"               : "/home/cc/poatest/",
+    "script"            : "geth",
+    "args"              : "--datadir /home/cc/poatest/qdata/dd1 --rpc --port 24000 --rpcport 25000 --nodiscover --syncmode full --mine --rpc --rpcaddr 0.0.0.0 --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3, --unlock 0 --password  /home/cc/poatest/passwords.txt",
+    "log_date_format"   : "YYYY-MM-DD HH:mm Z",
+    "merge_logs"        : false,
+    "watch"             : false,
+    "max_restarts"      : 100,
+    "exec_interpreter"  : "none",
+    "exec_mode"         : "fork_mode"
+  },
+  {
+    "name"              : "node2",
+    "cwd"               : "/home/cc/poatest/",
+    "script"            : "geth",
+    "args"              : "--datadir /home/cc/poatest/qdata/dd2 --rpc --port 24001 --rpcport 25001 --nodiscover --syncmode full --mine --rpc --rpcaddr 0.0.0.0 --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3, --unlock 0 --password  /home/cc/poatest/passwords.txt",
+    "log_date_format"   : "YYYY-MM-DD HH:mm Z",
+    "merge_logs"        : false,
+    "watch"             : false,
+    "max_restarts"      : 100,
+    "exec_interpreter"  : "none",
+    "exec_mode"         : "fork_mode"
+  },
+  {
+    "name"              : "node3",
+    "cwd"               : "/home/cc/poatest/",
+    "script"            : "geth",
+    "args"              : "--datadir /home/cc/poatest/qdata/dd3 --rpc --port 24002 --rpcport 25002 --nodiscover --syncmode full --mine --rpc --rpcaddr 0.0.0.0 --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3, --unlock 0 --password  /home/cc/poatest/passwords.txt",
+    "log_date_format"   : "YYYY-MM-DD HH:mm Z",
+    "merge_logs"        : false,
+    "watch"             : false,
+    "max_restarts"      : 100,
+    "exec_interpreter"  : "none",
+    "exec_mode"         : "fork_mode"
+  },
+  {
+    "name"              : "node4",
+    "cwd"               : "/home/cc/poatest/",
+    "script"            : "geth",
+    "args"              : "--datadir /home/cc/poatest/qdata/dd4 --rpc --port 24003 --rpcport 25003 --nodiscover --syncmode full --mine --rpc --rpcaddr 0.0.0.0 --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3, --unlock 0 --password  /home/cc/poatest/passwords.txt",
+    "log_date_format"   : "YYYY-MM-DD HH:mm Z",
+    "merge_logs"        : false,
+    "watch"             : false,
+    "max_restarts"      : 100,
+    "exec_interpreter"  : "none",
+    "exec_mode"         : "fork_mode"
+  } 
+]
